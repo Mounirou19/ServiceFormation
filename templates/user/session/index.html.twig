@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}Gestion des Sessions{% endblock %}
+{% block body %}
+<h2>Liste des Sessions</h2>
+<a href="{{ path('user_session_new') }}" class="btn btn-success mb-3">Ajouter une nouvelle session</a>
+<table id="sessionTable" class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Date de Début</th>
+      <th>Date de Fin</th>
+      <th>Formation</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for session in sessions %}
+      <tr>
+        <td>{{ session.id }}</td>
+        <td>{{ session.name }}</td>
+        <td>{{ session.dateDebut|date('Y-m-d') }}</td>
+        <td>{{ session.dateFin|date('Y-m-d') }}</td>
+        <td>{{ session.formation ? session.formation.name : 'Non assignée' }}</td>
+        <td>
+          <a href="{{ path('user_session_edit', {id: session.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+          <form method="post" action="{{ path('user_session_delete', {id: session.id}) }}" style="display: inline-block;">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette session ?');">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+{% block javascripts %}
+<script>
+$(document).ready(function() {
+  $('#sessionTable').DataTable();
+});
+</script>
+{% endblock %}

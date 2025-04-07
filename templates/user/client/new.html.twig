@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nouveau Client{% endblock %}
+{% block body %}
+<h2>Ajouter un nouveau client</h2>
+<form method="post" action="{{ path('user_client_new') }}">
+  <div class="mb-3">
+    <label for="siren" class="form-label">SIREN</label>
+    <input type="text" class="form-control" id="siren" name="siren" required>
+  </div>
+  <div class="mb-3">
+    <label for="iban" class="form-label">IBAN</label>
+    <input type="text" class="form-control" id="iban" name="iban" required>
+  </div>
+  <div class="mb-3">
+    <label for="adresse" class="form-label">Adresse</label>
+    <input type="text" class="form-control" id="adresse" name="adresse" required>
+  </div>
+  <div class="mb-3">
+    <label for="contact_facturation" class="form-label">Contact Facturation</label>
+    <input type="text" class="form-control" id="contact_facturation" name="contact_facturation" required>
+  </div>
+  <div class="mb-3">
+    <label for="commission" class="form-label">Commission</label>
+    <input type="number" class="form-control" id="commission" name="commission" step="0.01" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+{% endblock %}

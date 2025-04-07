@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Utilisateurs{% endblock %}
+
+{% block body %}
+<h2>Liste des Utilisateurs</h2>
+<!-- Bouton pour créer un nouvel utilisateur -->
+<a href="{{ path('admin_user_new') }}" class="btn btn-success mb-3">Créer un nouvel utilisateur</a>
+
+<!-- Table des utilisateurs -->
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>Rôles</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for user in users %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.roles|join(', ') }}</td>
+        <td>
+          <!-- Modifier un utilisateur -->
+          <a href="{{ path('admin_user_edit', {id: user.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+          <!-- Supprimer un utilisateur -->
+          <a href="{{ path('admin_user_delete', {id: user.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">Supprimer</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

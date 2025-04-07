@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block title %}Gestion des Projets{% endblock %}
+{% block body %}
+<h2>Liste des Projets</h2>
+<a href="{{ path('user_project_new') }}" class="btn btn-success mb-3">Ajouter un nouveau projet</a>
+<table id="projectTable" class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Budget Initial</th>
+      <th>Seuil d'Alerte</th>
+      <th>Liste de Diffusion</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for project in projects %}
+      <tr>
+        <td>{{ project.id }}</td>
+        <td>{{ project.name }}</td>
+        <td>{{ project.budgetInitial }}</td>
+        <td>{{ project.seuilAlerte }}</td>
+        <td>{{ project.listeDiffusion|join(', ') }}</td>
+        <td>
+          <a href="{{ path('user_project_edit', {id: project.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+          <form method="post" action="{{ path('user_project_delete', {id: project.id}) }}" style="display: inline-block;">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce projet ?');">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+{% block javascripts %}
+<script>
+$(document).ready(function() {
+  $('#projectTable').DataTable();
+});
+</script>
+{% endblock %}

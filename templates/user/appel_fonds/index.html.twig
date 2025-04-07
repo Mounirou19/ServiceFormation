@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block title %}Gestion des Appels de Fonds{% endblock %}
+{% block body %}
+<h2>Liste des Appels de Fonds</h2>
+<a href="{{ path('user_appel_fonds_new') }}" class="btn btn-success mb-3">Ajouter un appel de fonds</a>
+<table id="appelDeFondsTable" class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Montant</th>
+      <th>Date</th>
+      <th>Projet</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for appel in appels_de_fonds %}
+      <tr>
+        <td>{{ appel.id }}</td>
+        <td>{{ appel.montant }}</td>
+        <td>{{ appel.dateAppel|date('Y-m-d') }}</td>
+        <td>{{ appel.project.name }}</td>
+        <td>
+          <a href="{{ path('user_appel_fonds_edit', {id: appel.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+          <form method="post" action="{{ path('user_appel_fonds_delete', {id: appel.id}) }}" style="display: inline-block;">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet appel de fonds ?');">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+{% block javascripts %}
+<script>
+$(document).ready(function() {
+  $('#appelDeFondsTable').DataTable();
+});
+</script>
+{% endblock %}

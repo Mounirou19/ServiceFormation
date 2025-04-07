@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modifier un Appel de Fonds{% endblock %}
+{% block body %}
+<h2>Modifier l'appel de fonds</h2>
+<form method="post" action="{{ path('user_appel_fonds_edit', {id: appel_fonds.id}) }}">
+  <div class="mb-3">
+    <label for="amount" class="form-label">Montant</label>
+    <input type="number" class="form-control" id="amount" name="amount" value="{{ appel_fonds.amount }}" step="0.01" required>
+  </div>
+  <div class="mb-3">
+    <label for="date" class="form-label">Date</label>
+    <input type="date" class="form-control" id="date" name="date" value="{{ appel_fonds.date|date('Y-m-d') }}" required>
+  </div>
+  <div class="mb-3">
+    <label for="project" class="form-label">Projet</label>
+    <select class="form-control" id="project" name="project" required>
+      {% for project in projects %}
+        <option value="{{ project.id }}" {% if project.id == appel_fonds.project.id %}selected{% endif %}>
+          {{ project.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Modifier</button>
+</form>
+{% endblock %}

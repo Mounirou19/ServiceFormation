@@ -1,0 +1,34 @@
+security:
+    enable_authenticator_manager: true
+
+    password_hashers:
+        App\Entity\User:
+            algorithm: auto
+
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email # Correspond au champ utilisé pour l'authentification
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            lazy: true
+            provider: app_user_provider
+            logout:
+                path: logout
+                target: /login
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 3600 # 1 semaine
+                path: /
+                #always_remember_me: true
+            custom_authenticator: App\Security\LoginFormAuthenticator
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/user, roles: ROLE_USER }

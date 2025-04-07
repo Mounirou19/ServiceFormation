@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ajouter un Appel de Fonds{% endblock %}
+{% block body %}
+<h2>Ajouter un appel de fonds</h2>
+<form method="post" action="{{ path('user_appel_fonds_new') }}">
+  <div class="mb-3">
+    <label for="amount" class="form-label">Montant</label>
+    <input type="number" class="form-control" id="amount" name="amount" step="0.01" required>
+  </div>
+  <div class="mb-3">
+    <label for="date" class="form-label">Date</label>
+    <input type="date" class="form-control" id="date" name="date" required>
+  </div>
+  <div class="mb-3">
+    <label for="project" class="form-label">Projet</label>
+    <select class="form-control" id="project" name="project" required>
+      <option value="">-- Sélectionner un projet --</option>
+      {% for project in projects %}
+        <option value="{{ project.id }}">{{ project.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+{% endblock %}

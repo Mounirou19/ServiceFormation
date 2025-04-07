@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modifier Session{% endblock %}
+{% block body %}
+<h2>Modifier la session</h2>
+<form method="post" action="{{ path('user_session_edit', {id: session.id}) }}">
+  <div class="mb-3">
+    <label for="name" class="form-label">Nom</label>
+    <input type="text" class="form-control" id="name" name="name" value="{{ session.name }}" required>
+  </div>
+  <div class="mb-3">
+    <label for="date_debut" class="form-label">Date de Début</label>
+    <input type="date" class="form-control" id="date_debut" name="date_debut" value="{{ session.dateDebut|date('Y-m-d') }}" required>
+  </div>
+  <div class="mb-3">
+    <label for="date_fin" class="form-label">Date de Fin</label>
+    <input type="date" class="form-control" id="date_fin" name="date_fin" value="{{ session.dateFin|date('Y-m-d') }}" required>
+  </div>
+  <div class="mb-3">
+    <label for="formation" class="form-label">Formation</label>
+    <select class="form-control" id="formation" name="formation" required>
+      {% for formation in formations %}
+        <option value="{{ formation.id }}" {% if session.formation and session.formation.id == formation.id %}selected{% endif %}>
+          {{ formation.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Modifier</button>
+</form>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block title %}Gestion des Formations{% endblock %}
+{% block body %}
+<h2>Liste des Formations</h2>
+<a href="{{ path('user_formation_new') }}" class="btn btn-success mb-3">Ajouter une nouvelle formation</a>
+<table id="formationTable" class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom</th>
+      <th>Description</th>
+      <th>Durée (en heures)</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for formation in formations %}
+      <tr>
+        <td>{{ formation.id }}</td>
+        <td>{{ formation.name }}</td>
+        <td>{{ formation.description }}</td>
+        <td>{{ formation.duree }}</td>
+        <td>
+          <a href="{{ path('user_formation_edit', {id: formation.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+          <form method="post" action="{{ path('user_formation_delete', {id: formation.id}) }}" style="display: inline-block;">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette formation ?');">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+{% block javascripts %}
+<script>
+$(document).ready(function() {
+  $('#formationTable').DataTable();
+});
+</script>
+{% endblock %}

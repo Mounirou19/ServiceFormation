@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un Utilisateur{% endblock %}
+
+{% block body %}
+<h2>Créer un Utilisateur</h2>
+<form method="post" action="{{ path('admin_user_new') }}">
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" name="email" required>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Mot de passe</label>
+    <input type="password" class="form-control" id="password" name="password" required>
+  </div>
+  <div class="mb-3">
+    <label for="roles" class="form-label">Rôles</label>
+    <select class="form-control" id="roles" name="role">
+      <option value="ROLE_USER">Utilisateur</option>
+      <option value="ROLE_ADMIN">Administrateur</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Créer l'utilisateur</button>
+</form>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modifier Formation{% endblock %}
+{% block body %}
+<h2>Modifier la formation</h2>
+<form method="post" action="{{ path('user_formation_edit', {id: formation.id}) }}">
+  <div class="mb-3">
+    <label for="name" class="form-label">Nom</label>
+    <input type="text" class="form-control" id="name" name="name" value="{{ formation.name }}" required>
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea class="form-control" id="description" name="description" rows="3" required>{{ formation.description }}</textarea>
+  </div>
+  <div class="mb-3">
+    <label for="duree" class="form-label">Durée (en heures)</label>
+    <input type="number" class="form-control" id="duree" name="duree" value="{{ formation.duree }}" min="1" required>
+  </div>
+  <button type="submit" class="btn btn-primary">Modifier</button>
+</form>
+{% endblock %}

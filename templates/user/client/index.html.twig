@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block title %}Gestion des Clients{% endblock %}
+{% block body %}
+<h2>Liste des Clients</h2>
+<a href="{{ path('user_client_new') }}" class="btn btn-success mb-3">Ajouter un nouveau client</a>
+<table id="clientTable" class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>SIREN</th>
+      <th>IBAN</th>
+      <th>Adresse</th>
+      <th>Contact Facturation</th>
+      <th>Commission</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for client in clients %}
+      <tr>
+        <td>{{ client.id }}</td>
+        <td>{{ client.siren }}</td>
+        <td>{{ client.iban }}</td>
+        <td>{{ client.adresse }}</td>
+        <td>{{ client.contactFacturation }}</td>
+        <td>{{ client.commission }}</td>
+        <td>
+          <a href="{{ path('user_client_edit', {id: client.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+          <form method="post" action="{{ path('user_client_delete', {id: client.id}) }}" style="display: inline-block;">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce client ?');">Supprimer</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
+{% block javascripts %}
+<script>
+$(document).ready(function() {
+  $('#clientTable').DataTable();
+});
+</script>
+{% endblock %}

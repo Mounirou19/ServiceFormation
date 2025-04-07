@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nouvelle Session{% endblock %}
+{% block body %}
+<h2>Ajouter une nouvelle session</h2>
+<form method="post" action="{{ path('user_session_new') }}">
+  <div class="mb-3">
+    <label for="name" class="form-label">Nom</label>
+    <input type="text" class="form-control" id="name" name="name" required>
+  </div>
+  <div class="mb-3">
+    <label for="date_debut" class="form-label">Date de Début</label>
+    <input type="date" class="form-control" id="date_debut" name="date_debut" required>
+  </div>
+  <div class="mb-3">
+    <label for="date_fin" class="form-label">Date de Fin</label>
+    <input type="date" class="form-control" id="date_fin" name="date_fin" required>
+  </div>
+  <div class="mb-3">
+    <label for="formation" class="form-label">Formation</label>
+    <select class="form-control" id="formation" name="formation" required>
+      <option value="">-- Sélectionnez une formation --</option>
+      {% for formation in formations %}
+        <option value="{{ formation.id }}">{{ formation.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+{% endblock %}
