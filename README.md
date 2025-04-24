@@ -41,7 +41,6 @@ Ce projet est une application web construite avec **Symfony** pour la gestion de
 ### Étapes d'installation
 
 1. **Cloner le projet** :
-   ```bash
    git clone https://github.com/Mounirou19/ServiceFormation
    cd ServiceFormation
 
